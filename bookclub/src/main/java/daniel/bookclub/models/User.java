@@ -74,14 +74,6 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public List<Book> getBooks() {
-        return this.books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     public Long getId() {
         return this.id;
     }
@@ -120,6 +112,14 @@ public class User {
 
     public void setConfirm(String confirm) {
         this.confirm = confirm;
+    }
+
+    public List<Book> getBooks() {
+        return this.books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
 }

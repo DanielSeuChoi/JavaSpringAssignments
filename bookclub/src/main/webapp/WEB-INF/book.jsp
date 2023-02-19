@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
   <body>
     <div class="container">
         <h2>Register</h2>
-        <form:form action="/createpost" method="post" modelAttribute="books">
+        <form:form action="/books/new" method="post" modelAttribute="book">
             <div>
                 <form:errors class="alert-danger" path="title"/>
             </div>
@@ -40,12 +40,14 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="form-control">
                 <form:label path="author">Author:</form:label>
-
                 <form:input path="author"></form:input>
             </div>
             <div class="form-control">
                 <form:label path="description">Description:</form:label>
-                <form:input path="description"></form:input>
+                <form:textarea rows="4" class="input" path="description"/>
+            </div>
+            <div class="form-control">
+                <form:input type="hidden" path="user" value="${userId}"></form:input>
             </div>
             <input type="submit" value="Create">
         </form:form>

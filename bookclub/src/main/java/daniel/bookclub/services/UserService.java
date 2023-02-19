@@ -1,5 +1,6 @@
 package daniel.bookclub.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -49,6 +50,10 @@ public class UserService {
         return user;
     }
 
+    public List<User> allUsers() {
+        return userRepo.findAll();
+    }
+
     public User findById(Long id) {
         Optional<User> currentUser = userRepo.findById(id);
         if (currentUser.isPresent()) {
@@ -56,5 +61,9 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    public User savePosts(User user) {
+        return userRepo.save(user);
     }
 }

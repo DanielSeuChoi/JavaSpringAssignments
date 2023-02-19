@@ -1,5 +1,7 @@
 package daniel.bookclub.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "books")
 public class Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -80,7 +83,7 @@ public class Book {
         return this.user;
     }
 
-    public void sets(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

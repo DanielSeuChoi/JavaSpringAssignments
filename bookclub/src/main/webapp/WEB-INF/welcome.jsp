@@ -35,14 +35,14 @@ pageEncoding="UTF-8"%>
           <th>Author Name</th>
           <th>Posted By</th>
         </thead>
-        <tr>
-          <td>${user.id}</td>
-          <c:forEach var="book" items="${books}">
+        <c:forEach var="book" items="${book}">
+          <tr>
+            <td>${book.user.id}</td>
             <td>${book.title}</td>
             <td>${book.author}</td>
-          </c:forEach>
-          <td>${user.userName}</td>
-        </tr>
+            <td>${book.user.userName}</td>
+          </tr>
+        </c:forEach>
       </table>
     </div>
   </body>

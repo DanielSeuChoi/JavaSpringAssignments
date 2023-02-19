@@ -68,7 +68,7 @@ public class MainController {
         Long userId = (Long) session.getAttribute("userId");
         User user = userService.findById(userId);
         model.addAttribute("user", user);
-        model.addAttribute("books", books);
+        model.addAttribute("book", books);
         return "welcome.jsp";
     }
 
@@ -79,17 +79,32 @@ public class MainController {
     }
 
     @GetMapping("/books/new")
-    public String showBooks(Model model) {
-        model.addAttribute("books", new Book());
+    public String showBooks(@ModelAttribute("book") Book book, HttpSession session, Model model) {
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/logout";
+        }
+        Long userId = (Long) session.getAttribute("userId");
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
         return "book.jsp";
     }
 
-    @PostMapping("/createpost")
-    public String createPosts(@Valid @ModelAttribute("books") Book books,
-            BindingResult result, Model model, HttpSession session) {
-        Book book = bookService.createPost(books);
-        model.addAttribute("newPost", book);
-        return "book.jsp";
+    @PostMapping("/books/new")
+    public String createPosts(@Valid @ModelAttribute("book") Book book,
+            BindingResult result, HttpSession session) {
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/logout";
+        }
+        if (result.hasErrors()) {
+            return "book.jsp";
+        } else {
+            bookService.createPost(book);
+            Long userId = (Long) session.getAttribute("userId");
+            User user = userService.findById(userId);
+            user.getBooks().add(book);
+            userService.savePosts(user);
+            return "redirect:/welcome";
+        }
     }
     // BOOK Controllers
 
