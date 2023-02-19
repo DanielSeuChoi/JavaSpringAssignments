@@ -23,27 +23,32 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="container">
-      <h1>Welcome, ${user.userName}</h1>
-      <a href="/logout">Log out</a>
-      <a href="/books/new">Add to my shelf!</a>
-    </div>
-    <div>
-      <table class="table">
-        <thead>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Author Name</th>
-          <th>Posted By</th>
-        </thead>
-        <tr>
-          <td>${user.id}</td>
-          <c:forEach var="book" items="${books}">
-            <td>${book.title}</td>
-            <td>${book.author}</td>
-          </c:forEach>
-          <td>${user.userName}</td>
-        </tr>
-      </table>
+        <h2>Register</h2>
+        <form:form action="/createpost" method="post" modelAttribute="books">
+            <div>
+                <form:errors class="alert-danger" path="title"/>
+            </div>
+            <div>
+                <form:errors class="alert-danger" path="author"/>
+            </div>
+            <div>
+                <form:errors class="alert-danger" path="description"/>
+            </div>
+            <div class="form-control">
+                <form:label path="title">Title:</form:label>
+                <form:input path="title"></form:input>
+            </div>
+            <div class="form-control">
+                <form:label path="author">Author:</form:label>
+
+                <form:input path="author"></form:input>
+            </div>
+            <div class="form-control">
+                <form:label path="description">Description:</form:label>
+                <form:input path="description"></form:input>
+            </div>
+            <input type="submit" value="Create">
+        </form:form>
     </div>
   </body>
 </html>

@@ -1,5 +1,7 @@
 package daniel.bookclub.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import daniel.bookclub.models.Book;
 import daniel.bookclub.models.LoginUser;
 import daniel.bookclub.models.User;
 import daniel.bookclub.services.BookService;
@@ -57,13 +60,15 @@ public class MainController {
     }
 
     @GetMapping("/welcome")
-    public String welcome(HttpSession session, Model model) {
+    public String welcome(@ModelAttribute("book") Book book, HttpSession session, Model model) {
         if (session.getAttribute("userId") == null) {
             return "redirect:/logout";
         }
+        List<Book> books = bookService.allPost();
         Long userId = (Long) session.getAttribute("userId");
         User user = userService.findById(userId);
         model.addAttribute("user", user);
+        model.addAttribute("books", books);
         return "welcome.jsp";
     }
 
@@ -72,4 +77,20 @@ public class MainController {
         session.setAttribute("userId", null);
         return "redirect:/";
     }
+
+    @GetMapping("/books/new")
+    public String showBooks(Model model) {
+        model.addAttribute("books", new Book());
+        return "book.jsp";
+    }
+
+    @PostMapping("/createpost")
+    public String createPosts(@Valid @ModelAttribute("books") Book books,
+            BindingResult result, Model model, HttpSession session) {
+        Book book = bookService.createPost(books);
+        model.addAttribute("newPost", book);
+        return "book.jsp";
+    }
+    // BOOK Controllers
+
 }
