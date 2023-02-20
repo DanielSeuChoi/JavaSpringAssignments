@@ -3,13 +3,10 @@ package daniel.bookclub.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import daniel.bookclub.models.Book;
-import daniel.bookclub.models.User;
 import daniel.bookclub.repositories.BookRepository;
 
 @Service
@@ -18,6 +15,10 @@ public class BookService {
     private BookRepository bookRepo;
 
     public Book createPost(Book book) {
+        return bookRepo.save(book);
+    }
+
+    public Book update(Book book) {
         return bookRepo.save(book);
     }
 
@@ -32,6 +33,10 @@ public class BookService {
         } else {
             return null;
         }
+    }
+
+    public void delete(Book book) {
+        bookRepo.delete(book);
     }
 
 }

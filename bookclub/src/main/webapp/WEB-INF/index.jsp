@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Login and Registration</title>
+    <title>Book Shelf</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <!-- change to match your file/naming structure -->

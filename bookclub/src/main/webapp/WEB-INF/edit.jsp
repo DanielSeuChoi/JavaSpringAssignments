@@ -23,11 +23,9 @@ pageEncoding="UTF-8"%>
   </head>
   <body>
     <div class="container">
-        <div class="d-flex justify-content-between">
-            <h2>Add to Shelf</h2>
-            <a href="/welcome">Back to shelves</a>
-        </div>
-        <form:form action="/books/new" method="post" modelAttribute="book">
+        <h2>Edit Book</h2>
+        <form:form action="/books/${book.id}" method="post" modelAttribute="book">
+            <input type="hidden" name="_method" value="put">
             <div>
                 <form:errors class="alert-danger" path="title"/>
             </div>
@@ -39,15 +37,15 @@ pageEncoding="UTF-8"%>
             </div>
             <div class="form-control">
                 <form:label path="title">Title:</form:label>
-                <form:input path="title"></form:input>
+                <form:input path="title" value="${title}"></form:input>
             </div>
             <div class="form-control">
                 <form:label path="author">Author:</form:label>
-                <form:input path="author"></form:input>
+                <form:input path="author" value="${author}"></form:input>
             </div>
             <div class="form-control">
                 <form:label path="description">Description:</form:label>
-                <form:textarea rows="4" class="input" path="description"/>
+                <form:textarea rows="4" class="input" path="description" value="${description}"/>
             </div>
             <div class="form-control">
                 <form:input type="hidden" path="user" value="${userId}"></form:input>

@@ -15,6 +15,8 @@ pageEncoding="UTF-8"%>
     <title>Book Shelf</title>
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
     <!-- change to match your file/naming structure -->
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -22,33 +24,25 @@ pageEncoding="UTF-8"%>
     <!-- change to match your file/naming structure -->
   </head>
   <body>
-    <div class="d-flex justify-content-between p-2">
-      <h1>Welcome, ${user.userName}</h1>
-      <a href="/logout">Log out</a>
+    <div class="d-flex justify-content-between p-3">
+      <h1>${book.title}</h1>
+      <a href="/welcome">Back to shelves</a>
     </div>
-    <div class="d-flex justify-content-between p-2">
-      <h4>Books from everyone's shelves:</h4>
-      <a href="/books/new">Add to shelf!</a>
+    <div class="p-3">
+      <span>${book.user.userName} read ${book.title} by ${book.author}</span>
+      <p>Here are ${book.user.userName}'s thoughts:</p>
     </div>
+
     <div class="container">
-      <table class="table">
-        <thead>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Author Name</th>
-          <th>Posted By</th>
-        </thead>
-        <c:forEach var="book" items="${books}">
-          <tr>
-            <td>${book.id}</td>
-            <td>
-              <a path="${book.id}" href="/books/${book.id}">${book.title}</a>
-            </td>
-            <td>${book.author}</td>
-            <td>${book.user.userName}</td>
-          </tr>
-        </c:forEach>
-      </table>
+      <hr />
+      <p><c:out value="${book.description}"></c:out></p>
+      <hr />
+      <div>
+        <c:if test="${userId==book.user.id}">
+          <a href="/books/${book.id}/edit">Edit Book</a>
+          <a href="/books/${book.id}/delete">Delete Entry</a>
+        </c:if>
+      </div>
     </div>
   </body>
 </html>
