@@ -37,16 +37,47 @@ pageEncoding="UTF-8"%>
           <th>Title</th>
           <th>Author Name</th>
           <th>Posted By</th>
+          <th>Borrow</th>
         </thead>
         <c:forEach var="book" items="${books}">
-          <tr>
-            <td>${book.id}</td>
-            <td>
-              <a path="${book.id}" href="/books/${book.id}">${book.title}</a>
-            </td>
-            <td>${book.author}</td>
-            <td>${book.user.userName}</td>
-          </tr>
+          <c:if test="${user.id!=book.borrower.id}">
+            <tr>
+              <td>${book.id}</td>
+              <td>
+                <a path="${book.id}" href="/books/${book.id}">${book.title}</a>
+              </td>
+              <td>${book.author}</td>
+              <td>${book.user.userName}</td>
+              <c:if test="${user!=book.user}">
+                <td><a href="books/${book.id}/borrow">Borrow</a></td>
+              </c:if>
+            </tr>
+          </c:if>
+        </c:forEach>
+      </table>
+
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author Name</th>
+          <th>Owner</th>
+          <th>Return</th>
+        </tr>
+        <c:forEach var="book" items="${books}">
+          <c:if test="${user.id==book.borrower.id}">
+            <tr>
+              <td><c:out value="${book.id}" /></td>
+              <td>
+                <a href="/books/${book.id}"><c:out value="${book.title}" /></a>
+              </td>
+              <td><c:out value="${book.author}" /></td>
+              <td><c:out value="${book.user.userName}" /></td>
+              <c:if test="${user!=book.user}">
+                <td><a href="books/${book.id}/return">return</a></td>
+              </c:if>
+            </tr>
+          </c:if>
         </c:forEach>
       </table>
     </div>

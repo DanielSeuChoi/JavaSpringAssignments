@@ -154,4 +154,26 @@ public class MainController {
         bookService.delete(book);
         return "redirect:/welcome";
     }
+
+    @GetMapping("/books/{id}/borrow")
+    public String borrowBook(@PathVariable("id") Long id, HttpSession session) {
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/logout";
+        }
+        Book book = bookService.findById(id);
+        book.setBorrower(userService.findById((Long) session.getAttribute("userId")));
+        bookService.update(book);
+        return "redirect:/welcome";
+    }
+
+    @GetMapping("/books/{id}/return")
+    public String returnBook(@PathVariable("id") Long id, HttpSession session) {
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/logout";
+        }
+        Book book = bookService.findById(id);
+        book.setBorrower(null);
+        bookService.update(book);
+        return "redirect:/welcome";
+    }
 }
